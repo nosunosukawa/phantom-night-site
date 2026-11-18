@@ -25,6 +25,19 @@ html, body {
 }
 #cv { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; image-rendering: pixelated; }
 #ui { position: fixed; inset: 0; pointer-events: none; }
+/* 横長の画面 (Mac・PC・横向きのタブレット) では、縦長の枠 (9:16) を真ん中に置く。
+   ゲームは縦長の画面だけを前提に作ってあるので、枠の外は暗い余白にする */
+@media (min-aspect-ratio: 5/8) {
+  :root { --fw: calc(100vh * 0.5625); }
+  @supports (height: 100dvh) { :root { --fw: calc(100dvh * 0.5625); } }
+  body { background: radial-gradient(ellipse at 50% 40%, #10123a 0%, var(--ink) 70%); }
+  #cv, #ui { left: calc(50% - var(--fw) / 2); right: auto; width: var(--fw); }
+  #cv { box-shadow: 0 0 0 1px var(--line), 0 0 60px rgba(0, 0, 0, 0.7); }
+  /* vw で決めていた文字の大きさを、窓ではなく枠の幅で決め直す */
+  body h1 .jp { font-size: clamp(36px, calc(var(--fw) * 0.14), 78px); }
+  body .catch { font-size: clamp(14px, calc(var(--fw) * 0.044), 19px); }
+  body .door .tt { font-size: clamp(30px, calc(var(--fw) * 0.11), 52px); }
+}
 canvas.px { image-rendering: pixelated; display: block; }
 
 .screen {

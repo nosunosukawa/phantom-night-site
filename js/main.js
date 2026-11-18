@@ -79,7 +79,8 @@ function safeInset(side) {
 
 function resize() {
   const dpr = Math.min(window.devicePixelRatio || 1, 3);
-  const devW = Math.max(1, Math.round(window.innerWidth * dpr)), devH = Math.max(1, Math.round(window.innerHeight * dpr));
+  // 横長の画面では CSS が縦長の枠に絞るので、窓ではなくキャンバスの実寸で測る
+  const devW = Math.max(1, Math.round((cv.clientWidth || window.innerWidth) * dpr)), devH = Math.max(1, Math.round((cv.clientHeight || window.innerHeight) * dpr));
   cv.width = devW; cv.height = devH;
   K = Math.max(1, Math.floor(Math.min(devW / 300, devH / 470)));
   if (devW / K > 360 || devW / K < 270) K = Math.max(1, Math.round(devW / 310 * 4) / 4);
