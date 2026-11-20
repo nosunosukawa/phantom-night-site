@@ -97,6 +97,7 @@ h1 .en { display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.4e
 .tile.locked::after { content: "LOCK"; position: absolute; top: 4px; left: 4px; font-size: 10px; color: var(--gold); background: #5a1010; padding: 0 3px; }
 .card { display: flex; gap: 10px; align-items: flex-start; }
 .card canvas { width: 46%; flex: none; background: linear-gradient(180deg, #5a96e8, #a8cef6 70%, #3e9a44 70%); }
+.card canvas.turn { background: radial-gradient(ellipse at 50% 30%, #2a3a7a, #0b1034 75%); touch-action: pan-y; cursor: grab; }
 .card .info { flex: 1; min-width: 0; }
 .card .name { font-size: 17px; }
 .card .ttl { font-size: 11px; color: var(--gold); margin: 2px 0 6px; }

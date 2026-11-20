@@ -4,6 +4,7 @@ import { RaceSim, ITEM } from './sim.js';
 import * as D from './data.js';
 import * as A from './art.js';
 import { Sound } from './audio.js';
+import { makeTurntable } from './stack.js';
 
 const PPM = 25;                            // 1m = 25 ドット
 const NOSE = A.SIDE_PAD + 67;              // 絵の中の鼻先の x
@@ -1104,6 +1105,8 @@ function showSelect(change = false) {
     <button class="btn primary" id="go">この馬で行く</button>
     <button class="link" id="back">もどる</button></div>`, 'select', 'dim-bg');
   const grid = el.querySelector('#grid');
+  // 選んだ馬は、輪切りのドット絵を重ねた立体で回して見せる (js/stack.js)
+  const turn = makeTurntable(D.ROSTER[sel]);
   const draw = () => {
     const h = D.ROSTER[sel];
     const bonus = change ? C.bonus : { speed: 0, stamina: 0, guts: 0 };
@@ -1114,7 +1117,8 @@ function showSelect(change = false) {
       <div class="stat">スタミナ<div class="bars">${bars(h.stamina, bonus.stamina)}</div></div>
       <div class="stat">ガッツ<div class="bars">${bars(h.guts, bonus.guts)}</div></div>
       <p class="note">脚質 ${D.STYLE[h.style].name}${h.gait !== 'normal' ? `・${h.gait === 'pitch' ? 'ピッチ' : 'ストライド'}走法` : ''}<br>${esc(h.blurb)}</p></div>`;
-    card.prepend(spriteCanvas(h, 9));
+    turn.set(h);
+    card.prepend(turn.canvas);
     const go = el.querySelector('#go');
     go.disabled = !unlocked(sel);
     go.textContent = unlocked(sel) ? 'この馬で行く' : (sel === D.PHANTOM_INDEX ? '幻影賞で勝つと選べる' : '物語を全クリすると選べる');
