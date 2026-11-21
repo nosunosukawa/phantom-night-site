@@ -158,7 +158,8 @@ function drawJockey(c, spec, face, f, sx, sy, eyeAt, cap) {
   c.rect(ox + 9, oy - 11, 3, 1, spec.id === 'phantom' ? 0xE0B830 : 0x70C0F0);
 }
 
-function drawHorse(c, spec, f, face, cap) {
+// 立体の馬 (stack.js) も、この同じ描き方から形と色を取り出す (最後に騎手を描く、という順を当てにしている)
+export function drawHorse(c, spec, f, face, cap) {
   const coat = spec.coat, mane = spec.mane;
   const ol = shade(coat, 0.36), hi = shade(coat, 1.3), dk = shade(coat, 0.7);
   const maneC = mane === coat ? shade(coat, 0.5) : mane;
